@@ -17,7 +17,11 @@ interface VideoItemDao {
     @Query("SELECT * FROM RoomVideoItem")
     fun getAll(): List<RoomVideoItem>
 
+    @Query("SELECT * FROM RoomVideoItem LIMIT :limit OFFSET :offset")
+    fun getPage(limit: Int, offset: Int): List<RoomVideoItem>
+
+
     @Query("SELECT * FROM RoomVideoItem WHERE id = :id LIMIT 1")
-    fun findByLogin(id: Int): RoomVideoItem?
+    fun findById(id: Int): RoomVideoItem?
 
 }

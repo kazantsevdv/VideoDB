@@ -7,4 +7,5 @@ import io.reactivex.rxjava3.core.Single
 interface IRoomVideoItemCache {
     fun put(users: List<VideoItem>): Completable
     fun getAll(): Single<List<VideoItem>>
+    fun getPage(offset: Int): Single<List<VideoItem>>
 }

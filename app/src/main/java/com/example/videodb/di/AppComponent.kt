@@ -2,8 +2,11 @@ package com.example.videodb.di
 
 import com.example.videodb.di.modules.*
 import com.example.videodb.mvp.presenter.MainPresenter
+import com.example.videodb.mvp.presenter.VideoPresenter
 import com.example.videodb.mvp.presenter.VideosPresenter
 import com.example.videodb.ui.activity.MainActivity
+import com.example.videodb.ui.adapter.VideosRVAdapter
+import com.example.videodb.ui.fragment.VideoFragment
 import com.example.videodb.ui.fragment.VideosFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -23,12 +26,10 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
     fun inject(videosPresenter: VideosPresenter)
+    fun inject(videoPresenter: VideoPresenter)
     fun inject(videosFragment: VideosFragment)
-//    fun inject(userRepoPresenter: UserRepoPresenter)
-//    fun inject(userRepoFragment: UserRepoFragment)
-//
-//    //   fun inject(userFragment: UserFragment)
+    fun inject(videoFragment: VideoFragment)
     fun inject(mainActivity: MainActivity)
-//    //  fun inject(repositoryFragment: RepositoryFragment)
+    fun inject(videosRVAdapter: VideosRVAdapter)
 
 }

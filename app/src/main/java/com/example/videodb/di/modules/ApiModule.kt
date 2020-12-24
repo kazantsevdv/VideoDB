@@ -10,7 +10,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,8 +25,8 @@ class ApiModule {
     @Named("baseUrl")
     @Provides
     fun baseUrl() = "https://api.themoviedb.org/3/"
-    @Named("imgUrl")
 
+    @Named("imgUrl")
     @Provides
     fun imgUrl() = "https://image.tmdb.org/t/p/w500"
 
@@ -62,13 +61,13 @@ class ApiModule {
             val original = it.request()
             val url = original.url.newBuilder()
                 .addQueryParameter("api_key", key)
-                .build();
+                .build()
 
             val requestBuilder = original.newBuilder()
-                .url(url);
+                .url(url)
 
             val request = requestBuilder.build();
-            it.proceed(request);
+            it.proceed(request)
 
         }
             .addInterceptor(HttpLoggingInterceptor().apply {

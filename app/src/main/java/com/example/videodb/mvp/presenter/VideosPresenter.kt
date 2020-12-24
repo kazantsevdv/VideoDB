@@ -5,6 +5,7 @@ import com.example.videodb.mvp.model.repo.IVideosRepo
 import com.example.videodb.mvp.presenter.list.IVideosListPresenter
 import com.example.videodb.mvp.view.VideosView
 import com.example.videodb.mvp.view.list.IVideoItemView
+import com.example.videodb.navigation.Screens
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
@@ -28,9 +29,9 @@ class VideosPresenter() : MvpPresenter<VideosView>() {
 
         override fun bindView(view: IVideoItemView) {
             val video = videos[view.pos]
-            video.original_title?.let { view.setTitle(it) }
-            video.release_date?.let { view.setRelease(it) }
-            video.poster_path?.let { view.loadImage(it) }
+            video.original_title.let { view.setTitle(it) }
+            video.release_date.let { view.setRelease(it) }
+            video.poster_path.let { view.loadImage(it) }
         }
 
         override fun getCount() = videos.size
@@ -44,19 +45,20 @@ class VideosPresenter() : MvpPresenter<VideosView>() {
         loadData()
 
         videosListPresenter.itemClickListener = { view ->
-//            router.navigateTo(
-//                Screens.UserRepoScreen(videosListPresenter.videos[view.pos]
-//                )
-//            )
+            router.navigateTo(
+                Screens.VideoScreen(
+                    videosListPresenter.videos[view.pos]
+                )
+            )
         }
     }
 
     fun loadData() {
         videosRepo.getVideos()
             .observeOn(scheduler)
-            .subscribe({ repos ->
-                videosListPresenter.videos.clear()
-                videosListPresenter.videos.addAll(repos)
+            .subscribe({ videos ->
+                //videosListPresenter.videos.clear()
+                videosListPresenter.videos.addAll(videos)
                 viewState.updateList()
             }, {
                 println("Error: ${it.message}")
